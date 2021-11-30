@@ -172,6 +172,13 @@ function initMap() {
     ]
     
   });
+
+  // ********* MOSTRA O TRÁFEGO DE TRANSITO *********
+  const trafficLayer = new google.maps.TrafficLayer();
+
+  trafficLayer.setMap(map);
+  
+
   infoWindow = new google.maps.InfoWindow();
 
   const locationButton = document.createElement("button"); //Adiciona um botão
@@ -229,13 +236,9 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
-function marcadores() {
-
-  const marker = new google.maps.Marker({
-
-    map: map
-
-  });
 
 
-}
+
+
+
+
