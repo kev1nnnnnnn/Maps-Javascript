@@ -190,19 +190,62 @@ function initMap() {
   trafficLayer.setMap(map);
 
     // ********* MARCADORES *********
-
+    const image1 = "./assets/img/carro.png"
     const marker1 = new google.maps.Marker({
       position: usuario1,
       map: map,
+      icon: image1,
     });
 
+    const image2 = "./assets/img/carro.png"
     const marker2 = new google.maps.Marker({
       position: usuario2,
       map: map,
+      icon: image2,
     });
-
+        // ********* FIM MARCADORES *********
 }
 
+/* 
+success *
+Uma função de retorno que captura um objeto Position como seu parâmetro de entrada.
+
+error Optional *
+Uma função de retorno opcional que captura um objeto PositionError como seu parâmetro de entrada.
+*/
+
+
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+function success(pos) {
+  var crd = pos.coords;
+
+  const obj = {
+    latitude: crd.latitude,
+    longitude: crd.longitude,
+    metros: crd.accuracy,
+  };
+
+  const myJSON = JSON.stringify(obj);
+
+  console.log(myJSON);
+
+
+  /*console.log('Sua posicao atual e:');
+  console.log('Latitude : ' + crd.latitude);
+  console.log('Longitude: ' + crd.longitude);
+  console.log('Mais ou menos ' + crd.accuracy + ' metros.');*/
+};
+
+function error(err) {
+  console.warn('ERROR(' + err.code + '): ' + err.message);
+};
+
+navigator.geolocation.getCurrentPosition(success, error, options);
 
 
 
