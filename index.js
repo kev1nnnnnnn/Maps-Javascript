@@ -5,6 +5,17 @@
 let map, infoWindow;
 
 function initMap() {
+
+  const usuario1 = {
+    lat: -3.10719,
+    lng: -60.0261,
+  }
+  const usuario2 = {
+    lat: -3.10719,
+    lng: -60.4261,
+  }
+
+
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: -3.10719, lng: 60.0261 },
     zoom: 6,
@@ -177,63 +188,19 @@ function initMap() {
   const trafficLayer = new google.maps.TrafficLayer();
 
   trafficLayer.setMap(map);
-  
 
-  infoWindow = new google.maps.InfoWindow();
+    // ********* MARCADORES *********
 
-  const locationButton = document.createElement("button"); //Adiciona um botão
+    const marker1 = new google.maps.Marker({
+      position: usuario1,
+      map: map,
+    });
 
-  locationButton.textContent = "Localização Atual"; //Adiciona um texto ao botão.
+    const marker2 = new google.maps.Marker({
+      position: usuario2,
+      map: map,
+    });
 
-  locationButton.classList.add("custom-map-control-button"); //adicona uma classa ao botão para manipulação
-
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
- 
-  locationButton.addEventListener("click", () => {
-    
-    if (navigator.geolocation) {
-     
-      navigator.geolocation.getCurrentPosition(
-      
-        (position) => {
-          
-          const pos = {
-            
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Localização encontrada.");
-          infoWindow.open(map);
-          map.setCenter(pos);
-        },
-       
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    } else {
-     
-      // Browser não suporta a geolocalização.
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  });
-}
-
-//Função onde verifica se houve erro.
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  
-  infoWindow.setPosition(pos);
-  
-  infoWindow.setContent(
-   
-    browserHasGeolocation
-     
-    ? "Error: Erro de serviço geolicalizaçao."
-      : "Error: Seu browser não suporta a geolocalização."
-  );
-  infoWindow.open(map);
 }
 
 
