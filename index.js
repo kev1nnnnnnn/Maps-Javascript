@@ -3,7 +3,6 @@ function initMap() {
 
   var watchID = navigator.geolocation.watchPosition(function(position) {  
 
-
   let point = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
   // Inicializa o Google Maps API
@@ -175,6 +174,10 @@ function initMap() {
     ]
   });
 
+  const trafficLayer = new google.maps.TrafficLayer();
+
+  trafficLayer.setMap(map);
+  
   navigator.geolocation.clearWatch(watchID);
   
   let marker = null;
@@ -197,6 +200,7 @@ function initMap() {
   });
 
   setTimeout(initMap, 5000); //controla os intervalos de tempo de atualização.
+
 
 }
 
