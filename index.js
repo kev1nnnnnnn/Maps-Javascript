@@ -1,11 +1,15 @@
-if (navigator.geolocation) { 
-  navigator.geolocation.getCurrentPosition(function(position) {  
+function initMap() {
+
+  if (navigator.geolocation) { 
+    navigator.geolocation.getCurrentPosition(function(position) {  
+
+    
 
     var point = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-    // Initialize the Google Maps API v3
+    // Inicializa o Google Maps API
     var map = new google.maps.Map(document.getElementById('map'), {
-       zoom: 15,
+      zoom: 15,
       center: point,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles: 
@@ -171,41 +175,29 @@ if (navigator.geolocation) {
         }
       ]
     });
-  // Place a marker
+  
+  let marker = null;
 
-  new google.maps.Marker({
-    position: point,
-    map: map,
-    icon: "./assets/img/carro.png",
- });
-    var marker = null;
+      if(marker) {  
+        marker.setPosition(point);
+      } else {
+        marker = new google.maps.Marker({
+          position: point,
+          map: map,
+          icon: "./assets/img/carro.png",
+        })
+      }
 
-    function autoUpdate() {
-      navigator.geolocation.getCurrentPosition(function(position) {
+      map.setCenter(point);
 
-        var newPoint = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    });
 
-        if(marker) {
-          marker.setPosition(newPoint);
-        } else {
-          marker = new google.maps.Marker({
-            position: newPoint,
-            map: map,
-            icon: image1
-          })
-        }
+    setTimeout(initMap, 10000); //controla os intervalos de tempo de atualização.
+      }
+  
+    else {
+      alert('Geolocation API is not available');
+  } 
+}
 
-        map.setCenter(newPoint);
-
-      });
-
-      setTimeout(autoUpdate, 5000);
-    }
- 
-  }); 
-} 
-else {
-  alert('Geolocation API is not available');
-} 
-
-autoUpdate();
+initMap();
