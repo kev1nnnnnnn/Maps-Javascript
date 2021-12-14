@@ -199,7 +199,7 @@ function initMap() {
 
   });
 
-  setTimeout(initMap, 5000); //controla os intervalos de tempo de atualização.
+  setTimeout(initMap, 15000); //controla os intervalos de tempo de atualização.
 
 
 }
